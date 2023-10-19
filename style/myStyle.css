@@ -1,0 +1,334 @@
+*{
+	box-sizing:border-box;	
+}
+html{
+	font-size: 16px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+body{
+	padding:0px; 
+	margin:0px; 
+}
+
+
+/* -------------------headings---------------------- */
+h1 {
+	font-size: 2em;
+	font-weight: bold;
+	padding:0px;
+	padding-bottom: 10px;
+	margin: 0px;
+  }
+  h2 {
+	font-size: 1.6em;
+	font-weight: bold;
+	padding:0px;
+	padding-bottom: 10px;
+	margin: 0px;
+  }
+  h3 {
+	font-size: 1.2em;
+	font-weight: bold;
+	padding:0px;
+	padding-bottom: 10px;
+	margin: 0px;
+
+    color:#696969
+  }
+  
+  p {
+	line-height: 1.7;
+  }
+
+  p.validation_label{
+	font-size: 0.5em;
+	padding:0px;
+	padding-bottom: 10px;
+	margin: 0px;
+  }
+
+  
+  /* -------------------headings---------------------- */
+
+
+/*-----------------label container------------------*/
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+
+    border-style: solid;
+	border-width: 0px;
+	border-color: red;
+
+	padding-top: 50px;
+
+    width:100%;
+    min-height:100vh;
+	height:auto;
+
+	overflow-y: none;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+	justify-content: center;
+    align-items: left; 
+
+    border-style: solid;
+	border-width: 0px;
+	border-color: red;
+
+    width:85%;
+    min-width: 300px;
+
+    color:#696969;
+}
+    .form-group label{
+        display: block;
+        align-items: left;
+
+        color:rgb(91, 91, 91);
+        font-size:0.8em;
+    }
+
+/*-----------------label container------------------*/
+
+/*---------------------flex layers----------------------*/
+#log_in_signup_page_background {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+    align-items: center; 
+
+	border-style: solid;
+	border-width: 0px;
+	border-color: rgb(76, 76, 76);
+
+	width: 100%;
+	min-height: 100vh;
+
+	background-color: rgb(255, 255, 255);
+}
+    #log_in_signup{
+        display:flex;
+        flex-direction: column;
+       
+        
+
+        border-style: solid;
+        border-width: 2px;
+        border-radius:10px;
+        border-color: rgb(74, 74, 74);
+
+        background-color: hsl(0, 0%, 100%);
+
+
+        width: 30%;
+        min-width: 400px;
+        height: 89vh;
+        min-height:500px;
+
+        overflow-y: scroll;
+    }
+
+
+/*---------------------flex layers----------------------*/
+
+
+
+/* -------------------nav bar---------------------- */
+ul {
+	border-style:none;
+	border-width:10px;
+	border-color:rgb(8, 0, 255);
+	height:100%;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+
+  }
+  
+  li {
+	display:block;
+	float: left;
+	height:100px;
+  }
+  
+  li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: solid;
+	border-radius: 0px;
+	height:100px;
+  }
+  
+  li a:hover {
+	background-color: #111;
+  }
+  
+  #right_ul {
+	display:flex;
+	flex-direction: row-reverse;
+  }
+  
+  /* -------------------nav bar---------------------- */
+
+/*---------------------table----------------------*/
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	margin:20px;
+  }
+  
+  td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+	background-color: #dddddd;
+  }
+  /*---------------------table----------------------*/
+
+  /* -------------------vertical menu---------------------- */
+#vertical-menu {
+	overflow-y: auto;
+  }
+  
+  #vertical-menu a {
+	background-color: #ffffff;
+	color: black;
+	display: block;
+	padding: 12px;
+	text-decoration: none;
+  }
+  
+  #vertical-menu a:hover {
+	background-color: #ccc;
+  }
+  
+  #vertical-menu a.active {
+	background-color: #04AA6D;
+	
+  }
+  /* -------------------vertical menu---------------------- */
+
+  /* -------------------inputs---------------------- */
+input[type=text], input[type=email],input[type=tel],input[type=date],input[type=password], select {
+    
+    display: inline-block;
+
+	padding: 8px 10px;
+	margin: 8px 0;
+
+	border: 1px solid #ccc;
+	border-radius: 4px;
+
+    width: 100%;
+
+    color:#636363
+
+  }
+
+input[type=number], select {
+	width: 200px;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+input[type=submit],input[type=button] {
+	width: 100%;
+	background-color: #31a5df;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: solid;
+	border-radius: 4px;
+	cursor: pointer;
+}
+button{
+    width: 100%;
+	background-color: #31a5df;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: solid;
+	border-radius: 4px;
+	cursor: pointer;
+}
+input[type=submit]:disabled {
+    background-color: #ccc; /* Change the background color for disabled state */
+    cursor: not-allowed; /* Change the cursor for disabled state */
+}
+input[type=submit]:hover {
+
+}
+  
+  textarea{
+	max-width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	
+	border: 2px solid #090909;
+	border-radius: 4px;
+  }
+  /* -------------------inputs---------------------- */
+
+  /*---------------------animation example----------------------*/
+#container {
+	width: 400px;
+	height: 400px;
+	position: relative;
+	background: yellow;
+	
+  }
+  #animate {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	background-color: red;
+}
+
+/*---------------------animation example----------------------*/
+
+/* width */
+::-webkit-scrollbar {
+	width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey; 
+	border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+	background: rgb(77, 77, 77); 
+	border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+	background: #464646; 
+  }
+
+
+/*---------------------responsive----------------------*/
+
+  @media only screen and (max-width: 600px) {
+	
+	
+  }
+/*---------------------responsive----------------------*/

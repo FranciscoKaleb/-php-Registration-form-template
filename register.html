@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/myStyle.css">
+    <script src = "scripts/register.js"></script>
+
+</head>
+
+<body>
+
+    <div id = "log_in_signup_page_background">
+
+        <div id = "log_in_signup">
+            
+            <form action="php/process_registration.php" method="post">
+
+                    <p id = "test3">
+
+                    </p>
+                    <p id = "test4">
+
+                    </p>
+                    <p id = "test5">
+
+                    </p>
+                    <div class="form-group" style="margin-bottom:20px">
+                        <h3>User Registration Form</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ip_address" style = "display:none;">ip_address</label >
+                        <input type="text" id="ip_address" name="ip_address" style = "display:none;" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="first_name">First Name:</label>
+                        <input type="text" id="first_name" name="first_name" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" id="last_name" name="last_name" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label id = "test2" for="phone_number" >Phone Number:</label>
+                        <input type="text" id="phone_number" value = '' name="phone_number" onkeyup="ifEleven()"required>
+
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="birthday">Birthday:</label>
+                        <input type="date" id="birthday" name="birthday" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="region">Region</label>
+
+                        <select id="region" name="region" onload = "getProvince()" onchange = "getProvince()">
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="province" >Province</label>
+
+                        <select id="province" name="province"  onchange = "updateProvCodeAndgetMunicipalities()">
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="municipality">Municipality/City</label>
+
+                        <select id="municipality" name="municipality"  onchange = "updateMunCodeAndGetBrgy()">
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="brgy">Barangay</label>
+                        <select id="brgy" name="brgy" onclick = "updateMunCodeAndGetBrgy()" onchange = "updateBrgyCode()">
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="first_name">username</label>
+                        <input type="text" id="user_name" name="user_name" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="last_name">password</label>
+                        <input type="password" id="password" name="password" minlength="8" required>
+                    </div>
+
+                    <div class = "form-group" style = "flex-direction: column; align-items: center;padding-bottom: 50px;">
+                        <input type = "submit">
+                        <div class = "form-group">
+                            <a href = "login.html">log in</a>
+                        </div>
+                    </div>
+
+            </form>
+        </div>
+           
+    </div>
+
+</body>
