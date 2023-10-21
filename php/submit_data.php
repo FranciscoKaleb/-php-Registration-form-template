@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $messageString = '';
 
     // [1] check if fname and lname exceeds length limitation database will error if it exceeds varchar length
-    if(strlen($first_name) > 45 && strlen($last_name) > 45) {
-        $messageString .= "*name exceeds the allowed length\n";
+    if(strlen($first_name) > 45 || strlen($first_name) == 0 || strlen($last_name) > 45 || strlen($last_name) == 0) {
+        $messageString .= "*name must not be empty or exceed 45 characters\n";
     }
 
     // [2] check if age is allowed
@@ -67,45 +67,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     }
 
-    // [3] check if phone exist in the database
-    try{
-        $selectQuery1 = "SELECT * FROM userinfo WHERE phone_number = ?;";
-        $stmt1 = $conn->prepare($selectQuery1);
-        $stmt1->bind_param("s", $phone_number);
-        $stmt1->execute();
-        $result1 = $stmt1->get_result();
-        if($result1->num_rows > 0 ) {
-            $messageString .= "*number is taken\n";
-        }
-        $stmt1->close();   
-    }
-    catch(PDOException $e) {
-        
-    }
+    // [3] check if phone exist in the database - WONT implement since I cant send otp yet
+    // try{
+    //     $selectQuery1 = "SELECT * FROM userinfo WHERE phone_number = ?;";
+    //     $stmt1 = $conn->prepare($selectQuery1);
+    //     $stmt1->bind_param("s", $phone_number);
+    //     $stmt1->execute();
+    //     $result1 = $stmt1->get_result();
+    //     if($result1->num_rows > 0 ) {
+    //         $messageString .= "*number is taken\n";
+    //     }
+    //     $stmt1->close();   
+    // }
+    // catch(PDOException $e) {
+    // }
 
     // [3] send one time pin to number to confirm if owned
 
 
-    // [4] check if email format/length is 
+    // [4] check if email format/length is wont implement yet
     
     
-    // [4] check if email exist in the database
-    try{
-        $selectQuery2 = "SELECT * FROM user_credentials WHERE email = ?";
-        $stmt2 = $conn->prepare($selectQuery2);
-        $stmt2->bind_param("s", $email);
-        $stmt2->execute();
-        $result2 = $stmt2->get_result();
-        if($result2->num_rows > 0 ) {
-            $messageString .= "*email is taken\n";   
-        }
-        $stmt2->close();
-    }
-    catch(PDOException $e) {
+    // [4] check if email exist in the database - wont implement yet since this works only on local network
+    // try{
+    //     $selectQuery2 = "SELECT * FROM user_credentials WHERE email = ?";
+    //     $stmt2 = $conn->prepare($selectQuery2);
+    //     $stmt2->bind_param("s", $email);
+    //     $stmt2->execute();
+    //     $result2 = $stmt2->get_result();
+    //     if($result2->num_rows > 0 ) {
+    //         $messageString .= "*email is taken\n";   
+    //     }
+    //     $stmt2->close();
+    // }
+    // catch(PDOException $e) {
 
-    }
+    // }
 
-    // [4] send link to email to confirm registration
+    // [4] send link to email to confirm registration wont implement yet
 
 
 
@@ -125,10 +124,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
     }
 
-    // [5] check if username length exceeds limit
-    if(strlen($user_name) > 45){
-        $messageString .= "*username length exceeds the allowed limit\n";
+    // [5] check if username length exceeds limit or be empty
+    if(strlen($user_name) > 30 || strlen($user_name) == 0){
+        $messageString .= "*username must not be empty or exceed 30 characters\n";
     }
+
+    // [6] check if address is filled
         
     // part 2 - Data insertion
     if($messageString == ''){
