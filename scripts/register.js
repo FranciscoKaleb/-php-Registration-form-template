@@ -18,48 +18,6 @@ function getIPAddress(){
 
 
 
-function fetchData() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'php/check_num.php', true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var data = xhr.responseText;
-            if (data == 1) {
-                alert("number not available");
-                document.getElementById("phone_number").style.borderColor = "red";
-            } else if (data == 0) {
-                alert("number is available");
-                document.getElementById("phone_number").style.borderColor = "green";
-            } else {
-                alert(xhr.responseText);
-            }
-        } else {
-            alert("Error fetching data");
-        }
-    };
-    
-    // Send the phone number with the correct key
-    const val = document.getElementById("phone_number").value;
-    
-    const obj = {phone_number : String(val)};
-
-    xhr.send(JSON.stringify(obj));
-}
-
-
-function ifEleven(){
-    let string_ = String(document.getElementById("phone_number").value);
-
-    if(string_.length == 11){
-        const val = document.getElementById("phone_number").value;
-        //document.getElementById("test2").innerHTML = val;
-        
-        fetchData();
-    }
-}
-
-
-
 function getRegion() {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "php/get_region.php", true);
@@ -155,6 +113,13 @@ function populateProvince(data){
         temp_element.innerHTML = data[x]["provDesc"];
         element.appendChild(temp_element);
     }
+
+    prov_Code = '';
+    Mun_Code = '';
+    Brgy_Code = '';
+    document.getElementById("test3").innerHTML = prov_Code;
+    document.getElementById("test4").innerHTML = Mun_Code;
+    document.getElementById("test5").innerHTML = Brgy_Code;
 }
 
 function updateProvCodeAndgetMunicipalities(){
@@ -216,6 +181,9 @@ function populateMunicipalities(data){
         temp_element.innerHTML = data[x]["citymunDesc"];
         element.appendChild(temp_element);
     }
+
+    Mun_Code = '';
+    document.getElementById("test4").innerHTML = Mun_Code;
 }
 
 
@@ -268,15 +236,69 @@ function populateBrgy(data){
     let element = document.getElementById("brgy");
     element.innerHTML = '';
 
+    let dummy = document.createElement("option");
+    dummy.innerHTML = "CHOOSE BRGY";
+    element.appendChild(dummy);
+
     for (let x in data) {
         let temp_element = document.createElement("option");
         temp_element.innerHTML = data[x]["brgyDesc"];
         element.appendChild(temp_element);
     }
+
+    Brgy_Code = '';
+    document.getElementById("test5").innerHTML = Brgy_Code;
 }
 
 
 
+function createObjectFromInputs(){
+
+    let ip = document.getElementById("ip_address").value;
+    let first_name = document.getElementById("first_name").value;
+    let last_name = document.getElementById("last_name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone_number").value;
+    let birth = document.getElementById("birthday").value;
+    let address_code = Brgy_Code;
+    let user_name = document.getElementById("user_name").value;
+    let password = document.getElementById("password").value;
+
+    const obj = {
+        ip : ip,
+        first_name : first_name,
+        last_name : last_name,
+        email : email,
+        phone : phone,
+        birth : birth,
+        address_code : address_code,
+        user_name : user_name,
+        password : password
+    };
+    return obj;
+}
+
+
+
+function submitData(){
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "php/submit_data.php", true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            alert(xhr.responseText);
+        } else {
+            alert("Error fetching data.");
+        }
+    };  
+    
+    xhr.send(JSON.stringify(createObjectFromInputs()));
+}
+
+
 function sayHi(){
     alert("hi");
+}
+
+function showValues(data, data){
+    alert(data + " " + data);
 }

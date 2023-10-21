@@ -16,7 +16,7 @@
 
         <div id = "log_in_signup">
             
-            <form action="php/process_registration.php" method="post">
+            <form  method="post">
 
                     <p id = "test3">
 
@@ -53,7 +53,7 @@
             
                     <div class="form-group">
                         <label id = "test2" for="phone_number" >Phone Number:</label>
-                        <input type="text" id="phone_number" value = '' name="phone_number" onkeyup="ifEleven()"required>
+                        <input type="text" id="phone_number" maxlength = "11" value = '' name="phone_number" required>
 
                     </div>
             
@@ -65,7 +65,7 @@
                     <div class="form-group">
                         <label for="region">Region</label>
 
-                        <select id="region" name="region" onload = "getProvince()" onchange = "getProvince()">
+                        <select id="region" name="region" onload = "getProvince()" onchange = "getProvince()" required>
 
                         </select>
                     </div>
@@ -73,7 +73,7 @@
                     <div class="form-group">
                         <label for="province" >Province</label>
 
-                        <select id="province" name="province"  onchange = "updateProvCodeAndgetMunicipalities()">
+                        <select id="province" name="province"  onchange = "updateProvCodeAndgetMunicipalities()" required>
                             
                         </select>
                     </div>
@@ -81,14 +81,14 @@
                     <div class="form-group">
                         <label for="municipality">Municipality/City</label>
 
-                        <select id="municipality" name="municipality"  onchange = "updateMunCodeAndGetBrgy()">
+                        <select id="municipality" name="municipality"  onchange = "updateMunCodeAndGetBrgy()" required>
                             
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="brgy">Barangay</label>
-                        <select id="brgy" name="brgy" onclick = "updateMunCodeAndGetBrgy()" onchange = "updateBrgyCode()">
+                        <select id="brgy" name="brgy"  onchange = "updateBrgyCode()" required>
                             
                         </select>
                     </div>
@@ -104,7 +104,9 @@
                     </div>
 
                     <div class = "form-group" style = "flex-direction: column; align-items: center;padding-bottom: 50px;">
-                        <input type = "submit">
+                        <button onclick = "submitData()">
+                            click me
+                        </button>
                         <div class = "form-group">
                             <a href = "login.html">log in</a>
                         </div>

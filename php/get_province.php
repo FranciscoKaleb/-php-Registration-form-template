@@ -5,19 +5,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     $json = file_get_contents('php://input');
-
     $formData = json_decode($json, true);
-
     $regDesc = $formData["regDesc"];
 
-    //echo json_encode($regDesc);
-
     try {
-        $checkQuery = "SELECT provDesc, provCode FROM refprovince WHERE 
+        $selectQuery = "SELECT provDesc, provCode FROM refprovince WHERE 
         regCode = (SELECT regCode FROM refregion WHERE regDesc = ?)";
         
         
-        $stmt = $conn->prepare($checkQuery);
+        $stmt = $conn->prepare($selectQuery);
         $stmt->bind_param("s", $regDesc);
         $stmt->execute();
         $stmt->bind_result($provDesc, $provCode);

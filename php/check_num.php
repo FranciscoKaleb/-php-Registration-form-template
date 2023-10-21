@@ -4,11 +4,9 @@ include "db_config.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
+    sleep(2);
     $json = file_get_contents('php://input');
-
     $formData = json_decode($json, true);
-
     $phone_number = $formData["phone_number"];
 
 

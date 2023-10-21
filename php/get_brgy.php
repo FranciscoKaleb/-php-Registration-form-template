@@ -5,12 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     $json = file_get_contents('php://input');
-
     $formData = json_decode($json, true);
-
     $citymunCode = $formData["citymunCode"];
-
-    //echo json_encode($provCode);
 
     try {
         $checkQuery = "SELECT brgyDesc, brgyCode FROM refbrgy WHERE 
