@@ -260,6 +260,7 @@ function createObjectFromInputs(){
     let email = document.getElementById("email").value;
     let phone = document.getElementById("phone_number").value;
     let birth = document.getElementById("birthday").value;
+    let gender = document.getElementById("gender").value;
     let address_code = Brgy_Code;
     let user_name = document.getElementById("user_name").value;
     let password = document.getElementById("password").value;
@@ -271,6 +272,7 @@ function createObjectFromInputs(){
         email : email,
         phone : phone,
         birth : birth,
+        gender: gender,
         address_code : address_code,
         user_name : user_name,
         password : password
@@ -278,16 +280,32 @@ function createObjectFromInputs(){
     return obj;
 }
 
+function submit(){
 
+    
+}
+
+function client_side_validation(){
+
+}
 
 function submitData(){
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "php/submit_data.php", true);
     xhr.onload = function() {
         if (xhr.status === 200) {
-            alert(xhr.responseText);
+            if (xhr.responseText == "111"){
+                setTimeout(function () {
+                    alert("You have successfully registered!");
+                    window.location.href = "../login.html";
+                    
+                }, 500);
+            }
+            else{
+                alert(xhr.responseText);
+            }
         } else {
-            alert("Error fetching data.");
+            alert("Server side error");
         }
     };  
     

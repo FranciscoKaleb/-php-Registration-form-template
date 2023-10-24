@@ -11,12 +11,11 @@
 </head>
 
 <body>
-
     <div id = "log_in_signup_page_background">
 
         <div id = "log_in_signup">
             
-            <form  method="post">
+            <div  id = "form">
 
                     <p id = "test3" style = "display:none;">
 
@@ -60,6 +59,15 @@
                     <div class="form-group">
                         <label for="birthday">Birthday:</label>
                         <input type="date" id="birthday" name="birthday" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Sex</label>
+
+                        <select id="gender" name="gender" required>
+                            <option>male</option>
+                            <option>female</option>
+                        </select>
                     </div>
             
                     <div class="form-group">
@@ -108,11 +116,11 @@
                             Submit
                         </button>
                         <div class = "form-group">
-                            <a href = "index.html">log in</a>
+                            <a href = "login.html">log in</a>
                         </div>
                     </div>
 
-            </form>
+                </div>
         </div>
            
     </div>

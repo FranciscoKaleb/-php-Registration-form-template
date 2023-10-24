@@ -12,10 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $formData['email'];
     $phone_number = $formData['phone'];
     $birthday = $formData['birth'];
+    $gender = $formData['gender'];
     $address = $formData['address_code'];
     $user_name = $formData['user_name'];
     $pass_word = $formData['password']; // theres underscore in 'pass_word' because 'password' variable is taken already in dbconfig.php
-
+    $hashed_pass = password_hash($pass_word, PASSWORD_DEFAULT);
     // part 1 Data validation
     $messageString = '';
 
@@ -134,17 +135,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // part 2 - Data insertion
     if($messageString == ''){
         try{
-            $insertQuery = "INSERT INTO userinfo(first_name, last_name, birth_date, phone_number, address_code) 
-            VALUES(?, ?, ?, ?, ?)";
+            $insertQuery = "INSERT INTO userinfo(first_name, last_name, birth_date, gender, phone_number, address_code) 
+            VALUES(?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($insertQuery);
 
             if ($stmt === false) {
                 echo "Prepare failed: " . $conn->error;
             } else {
-                $stmt->bind_param("sssss", $first_name, $last_name, $birthday,$phone_number,$address);
+                $stmt->bind_param("ssssss", $first_name, $last_name, $birthday, $gender, $phone_number,$address);
 
                 if ($stmt->execute()) {
-                    echo "Insert successful";
+                    echo "1";
                 } else {
                     echo "Insert failed: " . $stmt->error;
                 }
@@ -153,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         catch(PDOException $e) {
-
+            //die($e->getMessage());
         }
         try{
             $insertQuery = "INSERT INTO user_credentials(user_id, email, user_name, password_) 
@@ -163,10 +164,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt === false) {
                 echo "Prepare failed: " . $conn->error;
             } else {
-                $stmt->bind_param("sss", $email, $user_name, $pass_word);
+                $stmt->bind_param("sss", $email, $user_name, $hashed_pass);
 
                 if ($stmt->execute()) {
-                    echo "Insert successful";
+                    echo "1";
                 } else {
                     echo "Insert failed: " . $stmt->error;
                 }
@@ -188,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->bind_param("s", $ip);
 
                 if ($stmt->execute()) {
-                    echo "Insert successful";
+                    echo "1";
                 } else {
                     echo "Insert failed: " . $stmt->error;
                 }
@@ -199,8 +200,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         catch(PDOException $e) {
             echo "failed to insert into ip_logs";
         }
-        
-        //header('Location: login.html');
              
     }
     else{
@@ -211,6 +210,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 } 
 else {
-    header('Location: registration.html');
+    
 }
 ?>
