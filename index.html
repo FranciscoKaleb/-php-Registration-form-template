@@ -5,13 +5,105 @@
 <head>
 
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style/myStyle.css">
+    <script src = "scripts/log_in.js"></script>
     <script src = "scripts/check_cookies.js"></script>
-
-
+    <script src = "scripts/logout.js"></script>
 </head>
 
 
-<body onload = "">
-   
+<body onload = "readCookies()">
+    <div id = "flex-dashboard">
+
+        <div id = "header">
+            <div id = "header-left">
+                <ul>
+                    <li>home</li>
+                    <li></li>
+                </ul>
+                
+            </div>
+            <div id = "header-middle">
+
+            </div>
+            <div id = "header-right">
+                <ul>
+                    <li>profile</li>
+                    <li onclick = "logout()">log out</li>
+                    
+                </ul>
+            </div>
+        </div>
+
+
+
+        <div id = "flex-left">
+            <ul>
+                <li>Yourshop</li>
+                <li>Community</li>
+            </ul>
+        </div>
+
+
+
+        <div id = "flex-layer-01">
+
+            
+
+            <div id = "flex-right">
+
+                <div id = "flex-content">
+
+                </div>
+
+                <div id = "flex-footer">
+                    
+                </div>
+            
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id = "log_in_signup_page_background">
+
+        <div id = "log_in_signup">
+            
+            <div  id = "form" style = "padding-top: 750;">
+                <div class="form-group" style="margin-bottom:20px">
+                    <h3>Sign in</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="ip_address" style = "display:none;">ip_address</label >
+                    <input type="text" id="ip_address" name="ip_address" style = "display:none;" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="first_name">username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="last_name">password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+        
+                <div class = "form-group">
+                    <button onclick = "sendCredentials()">
+                        Log in
+                    </button>
+                </div> 
+
+                <div class = "form-group">
+                    <a href = "register.html">Register</a>
+                </div>
+        
+                
+            </div>
+        </div>
+           
+    </div>
     
 </body>

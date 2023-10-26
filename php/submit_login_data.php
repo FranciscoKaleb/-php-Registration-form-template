@@ -2,13 +2,13 @@
 include "db_config.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //$json = file_get_contents('php://input');
-    //$formData = json_decode($json, true);
+    $json = file_get_contents('php://input');
+    $formData = json_decode($json, true);
 
 
-    $ip = $_POST["ip_address"];
-    $user_name = $_POST["username"];
-    $pass_word = $_POST["password"]; 
+    $ip = $formData["ip_address"];
+    $user_name = $formData["username"];
+    $pass_word = $formData["password"]; 
 
     // Perform input validation and sanitation as needed here
 
@@ -20,29 +20,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
+            //echo "1";
             $row = $result->fetch_assoc();
             $storedHash = $row['password_'];
 
             // Verify the hashed password
             if (password_verify($pass_word, $storedHash)) {
-                //echo json_encode(['user_id' => $row['user_id']]);
-                $html_content = '<html>';
-                $html_content .= '<head><title>Welcome to Home</title></head>';
-                $html_content .= '<body>';
-                $html_content .= '<p> Hi </p>';
-                $html_content .= '<h1>Welcome, ' . $user_data['username'] . '</h1>';
-                $html_content .= '<p>Your email: ' . $user_data['email'] . '</p>';
-                // Include more user-specific data here
-                $html_content .= '</body>';
-                $html_content .= '</html>';
-                echo $html_content;
-                //header('Location: ../home.html');
+                // [1] create session 
+                $user_id = $row['user_id'];
+                $timestamp = (new DateTime())->getTimestamp();
+                $sessionString = $user_id.$timestamp;
+                $sessionStringHash = password_hash($sessionString, PASSWORD_DEFAULT);
+
+                // [2] insert session to db
+                $insertQuery = "INSERT INTO sessions_(user_id, token, status_) VALUES(?,?, 'active')";
+                $stmt2 = $conn->prepare($insertQuery);
+                $stmt2->bind_param("ss", $user_id, $sessionStringHash);
+                $stmt2->execute();
+                // [2.1] insert to ip logs to be added later
+
+                // [3] echo the sessionString 
+                $data =[
+                    'user_id' => $user_id,
+                    'sessionStringHash' => $sessionStringHash
+                ];
+                echo json_encode($data);
+
+                // $html_content = '<html>';
+                // $html_content .= '<head><title>Welcome to Home</title></head>';
+                // $html_content .= '<body>';
+                // $html_content .= '<p> Hi </p>';
+                // $html_content .= '<h1>Welcome, ' . $user_data['username'] . '</h1>';
+                // $html_content .= '<p>Your email: ' . $user_data['email'] . '</p>';
+                // $html_content .= '</body>';
+                // $html_content .= '</html>';
+                // echo $html_content;
                 
             } else {
-                //echo json_encode(['error' => 'Invalid credentials']);
+                echo 'wrong password';
             }
         } else {
-            echo json_encode(['error' => 'User not found']);
+            echo 'user does not exist';
         }
 
         $stmt->close();

@@ -286,7 +286,8 @@ function submit(){
 }
 
 function client_side_validation(){
-
+    // check the empty inputs
+    // check the minimum length
 }
 
 function submitData(){
@@ -297,7 +298,7 @@ function submitData(){
             if (xhr.responseText == "111"){
                 setTimeout(function () {
                     alert("You have successfully registered!");
-                    window.location.href = "../login.html";
+                    window.location.href = "../index.html";
                     
                 }, 500);
             }
