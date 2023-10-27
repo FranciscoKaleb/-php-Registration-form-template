@@ -33,10 +33,27 @@ function createCredentialsObject(){
 
 
 
+function showDashboard(){
+  const xhr = new XMLHttpRequest();
+        xhr.open("POST", "php/show_dashboard.php", true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                //alert(xhr.responseText);
+                document.getElementsByTagName("body")[0].innerHTML = xhr.responseText;
+                
+            } else {
+                alert("Error fetching data.");
+            }
+        };  
+        xhr.send();
+}
+
+
 function sendCredentials(){
   // clear the existing cookie
   document.cookie = `user_id=`;
   document.cookie = `sessionStringHash=`;
+  document.cookie = `ip=`;
 
   // send values to db and generate session key on server
   const xhr = new XMLHttpRequest();
@@ -47,20 +64,23 @@ function sendCredentials(){
           alert("log in failed");
         }
         else{
-          // show dashboard
-          document.getElementById("log_in_signup_page_background").style.display = "none";
-          document.getElementById("flex-dashboard").style.display = "flex";
+          // show dashboard; this can be echoed too!
+          
 
           const obj = JSON.parse(xhr.responseText);
-          // Create a cookie string for the new session
+          // Create a cookie string for the new session 
+          // we can add values like device, ip address, screen dimension, color depth to heighten security
           const cookieValue = `user_id=${obj.user_id}`;
           const cookieValue2 = `sessionStringHash=${obj.sessionStringHash}`;
+          const cookieValue3 = `ip=${obj.ip}`;
           // Set the new cookie value
           document.cookie = cookieValue;
           document.cookie = cookieValue2;
+          document.cookie = cookieValue3;
+
           alert(document.cookie);
           //clear password
-          document.getElementById("password").value = "";
+          showDashboard();
         }
       } else {
           alert("Server side error");
@@ -72,38 +92,7 @@ function sendCredentials(){
 
 window.addEventListener("load", getIPAddress);
 
-function ssendCredentials(){
-    document.getElementById('loginButton').addEventListener('click', function () {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-      
-        // Perform input validation and send a request to the server
-        // You should also handle errors and security measures here
-      
-        fetch('login.php', {
-          method: 'POST',
-          body: JSON.stringify({ username, password }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-          .then(response => response.text())
-          .then(data => {
-            // Assuming the PHP script responds with JSON data
-            const response = JSON.parse(data);
-      
-            if (response.success) {
-              // Hide the login form and display the dashboard content
-              document.getElementById('loginForm').style.display = 'none';
-              document.getElementById('dashboardContainer').innerHTML = response.dashboardContent;
-            } else {
-              alert('Login failed. Please try again.');
-            }
-          })
-          .catch(error => console.error('Error:', error));
-      });
-      
-}
+
 
 
 

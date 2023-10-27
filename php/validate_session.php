@@ -1,5 +1,6 @@
 <?php
 include "db_config.php";
+include "dynamic_html.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $json = file_get_contents('php://input');
@@ -9,6 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $formData["user_id"];
     $sessionStringHash = $formData["sessionStringHash"];
     
+    
+
+
+
     //echo $user_id;
 
     // Perform input validation and sanitation as needed here
@@ -24,7 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->fetch();
 
         $result = ['status' => $status];
-        echo json_encode($result);
+
+        if ($result['status'] == "active"){
+           echo $dashboardhtml;
+
+        }
+        else{
+           echo $loginhtml;
+        }
+
         
         $stmt->close();
 

@@ -1,6 +1,22 @@
 
 
 
+
+function showLogIn(){
+    const xhr = new XMLHttpRequest();
+          xhr.open("POST", "php/show_login.php", true);
+          xhr.onload = function() {
+              if (xhr.status === 200) {
+                  //alert(xhr.responseText);
+                  document.getElementsByTagName("body")[0].innerHTML = xhr.responseText;
+                  
+              } else {
+                  alert("Error fetching data.");
+              }
+          };  
+          xhr.send();
+  }
+
 function logout(){
     // [1] set session as expired in db
     // [2] clear the cookies
@@ -30,10 +46,9 @@ function logout(){
     // [2]
     document.cookie = `user_id=`;
     document.cookie = `sessionStringHash=`;
-
+    document.cookie = `ip=`;
     // [3]
-    document.getElementById("log_in_signup_page_background").style.display = "flex";
-    document.getElementById("flex-dashboard").style.display = "none";
+    showLogIn();
 
 }
 

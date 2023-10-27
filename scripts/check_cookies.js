@@ -5,7 +5,7 @@
 
 function readCookies(){
     setTimeout(function() {
-            // [1] read cookie
+        // [1] read cookie
         const cookieString = document.cookie;
         // [2] split cookie
         const cookieArray = cookieString.split(';');
@@ -24,16 +24,9 @@ function readCookies(){
         xhr.open("POST", "php/validate_session.php", true);
         xhr.onload = function() {
             if (xhr.status === 200) {
-                
-                //alert(JSON.parse(xhr.responseText)["status"]);
-                if (JSON.parse(xhr.responseText)["status"] == "active"){
-                    document.getElementById("log_in_signup_page_background").style.display = "none";
-                    document.getElementById("flex-dashboard").style.display = "flex";
-                }
-                else{
-                    document.getElementById("log_in_signup_page_background").style.display = "flex";
-                    document.getElementById("flex-dashboard").style.display = "none";
-                }
+                //alert(xhr.responseText);
+                document.getElementById("body").innerHTML = xhr.responseText;
+                //alert(xhr.responseText);
                 
             } else {
                 alert("Error fetching data.");

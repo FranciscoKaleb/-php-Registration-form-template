@@ -285,32 +285,60 @@ function submit(){
     
 }
 
+let data_valid = false;
+
 function client_side_validation(){
     // check the empty inputs
-    // check the minimum length
+    // check the minimum/max length
+    let remind = '';
+    let first_name = document.getElementById("first_name").value;
+    let last_name = document.getElementById("last_name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone_number").value;
+    let birth = document.getElementById("birthday").value;
+    let address_code = Brgy_Code;
+    let user_name = document.getElementById("user_name").value;
+    let password = document.getElementById("password").value;
+
+    if(first_name == "" || last_name == "" || email == "" || phone == "" || birth == "" || address_code == "" || user_name == "" || password == ""){
+        data_valid = false;
+        alert("fields must not be empty");
+    }
+    else{
+        data_valid = true;
+    }
+   
+
 }
 
 function submitData(){
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "php/submit_data.php", true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            if (xhr.responseText == "111"){
-                setTimeout(function () {
-                    alert("You have successfully registered!");
-                    window.location.href = "../index.html";
-                    
-                }, 500);
+    client_side_validation();
+
+    if (data_valid == true){
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "php/submit_data.php", true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                if (xhr.responseText == "111"){
+                    setTimeout(function () {
+                        alert("You have successfully registered!");
+                        window.location.href = "../index.html";
+                        
+                    }, 500);
+                }
+                else{
+                    alert(xhr.responseText);
+                }
+            } else {
+                alert("Server side error");
             }
-            else{
-                alert(xhr.responseText);
-            }
-        } else {
-            alert("Server side error");
-        }
-    };  
-    
-    xhr.send(JSON.stringify(createObjectFromInputs()));
+        };  
+        
+        xhr.send(JSON.stringify(createObjectFromInputs()));
+    }
+    else{
+
+    } 
 }
 
 

@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $formData = json_decode($json, true);
 
 
-    $ip = $formData["ip_address"];
+    $ip = $formData["ip"];
     $user_name = $formData["username"];
     $pass_word = $formData["password"]; 
 
@@ -38,11 +38,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt2->bind_param("ss", $user_id, $sessionStringHash);
                 $stmt2->execute();
                 // [2.1] insert to ip logs to be added later
-
+                $insertQuery2 = "INSERT INTO ip_logs(user_id, session_id, ip_address, event_,time_stamp) 
+                VALUES(?,(SELECT MAX(session_id) FROM sessions_),?,'login',NOW())";
+                $stmt3 = $conn->prepare($insertQuery2);
+                $stmt3->bind_param("is", $user_id, $ip);
+                $stmt3->execute();
                 // [3] echo the sessionString 
                 $data =[
                     'user_id' => $user_id,
-                    'sessionStringHash' => $sessionStringHash
+                    'sessionStringHash' => $sessionStringHash,
+                    'ip' => $ip
                 ];
                 echo json_encode($data);
 
