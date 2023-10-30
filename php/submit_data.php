@@ -1,4 +1,5 @@
 <?php
+//used by register.js
 include "db_config.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -188,6 +189,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $stmt->bind_param("s", $ip);
 
+                if ($stmt->execute()) {
+                    echo "1";
+                } else {
+                    echo "Insert failed: " . $stmt->error;
+                }
+
+                $stmt->close();
+            }
+        }
+        catch(PDOException $e) {
+            echo "failed to insert into ip_logs";
+        }
+        try{
+            $insertQuery = "INSERT INTO user_roles(user_id, role_) VALUES((SELECT MAX(id) FROM userinfo), 'cashier')";
+            $stmt = $conn->prepare($insertQuery);
+
+            if ($stmt === false) {
+                echo "Prepare failed: " . $conn->error;
+            } else {
+                
                 if ($stmt->execute()) {
                     echo "1";
                 } else {

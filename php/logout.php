@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt3 = $conn->prepare($insertQuery2);
         $stmt3->bind_param("is", $user_id,$ip);
         $stmt3->execute();
+        $stmt3->close();
 
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();

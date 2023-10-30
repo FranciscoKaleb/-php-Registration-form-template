@@ -31,6 +31,13 @@ $loginhtml = "<div id = 'log_in_signup_page_background'>
                     </div>";
 
 $dashboardhtml = "<div id = 'flex-dashboard'>
+                    admin
+                    <button style = 'width:150px; height:50px' onclick = 'logout()'>
+                        logout
+                    </button>
+                  </div>";
+$cashierdashboardhtml = "<div id = 'flex-dashboard'>
+                    cashier
                     <button style = 'width:150px; height:50px' onclick = 'logout()'>
                         logout
                     </button>

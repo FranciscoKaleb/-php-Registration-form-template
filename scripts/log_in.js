@@ -18,6 +18,8 @@ function getIPAddress(){
        
 }
 
+// [1] we send this to server to verify credentials
+// [2] server sent this back to us hashed and we turn it to cookie for session management
 function createCredentialsObject(){ 
   let ip = document.getElementById("ip_address").value;
   let username = document.getElementById("username").value;
@@ -45,17 +47,17 @@ function showDashboard(){
                 alert("Error fetching data.");
             }
         };  
-        xhr.send();
+        const cookieObject = createCookieObject();
+        xhr.send(JSON.stringify(cookieObject));
 }
 
 
 function sendCredentials(){
-  // clear the existing cookie
+  // [1] clear the existing cookie
   document.cookie = `user_id=`;
   document.cookie = `sessionStringHash=`;
   document.cookie = `ip=`;
 
-  // send values to db and generate session key on server
   const xhr = new XMLHttpRequest();
   xhr.open("POST", "php/submit_login_data.php", true);
   xhr.onload = function() {
@@ -64,11 +66,8 @@ function sendCredentials(){
           alert("log in failed");
         }
         else{
-          // show dashboard; this can be echoed too!
-          
-
           const obj = JSON.parse(xhr.responseText);
-          // Create a cookie string for the new session 
+          // [3] Create a cookie string from the received echoed hashed response
           // we can add values like device, ip address, screen dimension, color depth to heighten security
           const cookieValue = `user_id=${obj.user_id}`;
           const cookieValue2 = `sessionStringHash=${obj.sessionStringHash}`;
@@ -79,14 +78,15 @@ function sendCredentials(){
           document.cookie = cookieValue3;
 
           alert(document.cookie);
-          //clear password
+          // [4] change UI, this is echoed separately because the first echoed string is the cookies, 
+          // we cant echo them same time
           showDashboard();
         }
       } else {
           alert("Server side error");
       }
   };  
-  
+  // [2] send values to db and generate session key on server
   xhr.send(JSON.stringify(createCredentialsObject()));
 }
 

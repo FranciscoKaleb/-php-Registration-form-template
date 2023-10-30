@@ -319,7 +319,7 @@ function submitData(){
         xhr.open("POST", "php/submit_data.php", true);
         xhr.onload = function() {
             if (xhr.status === 200) {
-                if (xhr.responseText == "111"){
+                if (xhr.responseText == "1111"){
                     setTimeout(function () {
                         alert("You have successfully registered!");
                         window.location.href = "../index.html";

@@ -1,4 +1,6 @@
+
 <?php
+//used by logout.js
 include "db_config.php";
 include "dynamic_html.php";
 

@@ -50,16 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'ip' => $ip
                 ];
                 echo json_encode($data);
-
-                // $html_content = '<html>';
-                // $html_content .= '<head><title>Welcome to Home</title></head>';
-                // $html_content .= '<body>';
-                // $html_content .= '<p> Hi </p>';
-                // $html_content .= '<h1>Welcome, ' . $user_data['username'] . '</h1>';
-                // $html_content .= '<p>Your email: ' . $user_data['email'] . '</p>';
-                // $html_content .= '</body>';
-                // $html_content .= '</html>';
-                // echo $html_content;
                 
             } else {
                 echo 'wrong password';

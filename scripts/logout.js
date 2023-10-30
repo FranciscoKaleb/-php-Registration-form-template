@@ -15,7 +15,7 @@ function showLogIn(){
               }
           };  
           xhr.send();
-  }
+}
 
 function logout(){
     // [1] set session as expired in db
